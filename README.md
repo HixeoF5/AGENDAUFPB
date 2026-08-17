@@ -51,10 +51,12 @@ Se desejar executar ou modificar o código-fonte localmente:
 Passo a Passo
 
 01. Clone o repositório:
+
 git clone [https://github.com/HixeoF5/AGENDAUFPB.git](https://github.com/HixeoF5/AGENDAUFPB.git)
 cd AGENDAUFPB
 
 02. Instale os pacotes e dependências:
+
 flutter pub get
 
 03. Execute a aplicação:
