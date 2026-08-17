@@ -1,0 +1,31 @@
+name: Gerar Executavel Windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Baixar Dependencias
+        run: flutter pub get
+
+      - name: Compilar para Windows
+        run: flutter build windows --release
+
+      - name: Compactar em ZIP
+        run: Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath AgendaAcademica-Windows.zip
+
+      - name: Disponibilizar Arquivo
+        uses: actions/upload-artifact@v4
+        with:
+          name: AgendaAcademica-Windows
+          path: AgendaAcademica-Windows.zip
