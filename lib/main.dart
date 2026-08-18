@@ -2551,14 +2551,47 @@ class PeriodoLetivoView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('FALTAS: ${faltasDisc.length} / 15', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white70)),
+              Text(
+                'FALTAS: ${faltasDisc.length} / 15',
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white70),
+              ),
               Row(
                 children: [
-                  TextButton(onPressed: () => _modalVerHistoricoFaltas(context, curInfo.nome, faltasDisc), child: Text('Histórico', style: TextStyle(fontSize: 11, color: corDinamica))),
-                  TextButton(onPressed: () => _modalRegistrarFalta(context, dc['codigo'], ini, fim), child: const Text('+ Registrar', style: TextStyle(fontSize: 11, color: Colors.orangeAccent))),
+                  TextButton(
+                    onPressed: () => _modalVerHistoricoFaltas(context, curInfo.nome, faltasDisc),
+                    child: Text('Histórico', style: TextStyle(fontSize: 11, color: corDinamica)),
+                  ),
+                  TextButton(
+                    onPressed: () => _modalRegistrarFalta(context, dc['codigo'], ini, fim),
+                    child: const Text('+ Registrar', style: TextStyle(fontSize: 11, color: Colors.orangeAccent)),
+                  ),
                 ],
               )
             ],
+          ),
+          const SizedBox(height: 8),
+
+          // ==========================================
+          // GRADE DAS 15 ESTRELAS DE FALTAS
+          // ==========================================
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 15,
+              childAspectRatio: 1.0,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4,
+            ),
+            itemCount: 15,
+            itemBuilder: (ctx, i) {
+              final bool isFalta = i < faltasDisc.length;
+              return Icon(
+                isFalta ? Icons.star : Icons.star_border,
+                color: isFalta ? Colors.redAccent : Colors.white24,
+                size: 20,
+              );
+            },
           ),
         ],
       ),
